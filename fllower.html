@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script src="./twaver.js"></script>
+<script type="text/javascript">
+	var box = new twaver.ElementBox(); 
+	var network = new twaver.vector.Network(box); 
+	function init() { 
+		initNetwork(); 
+		initDataBox(); 
+	} 
+	function initNetwork() { 
+		var view = network.getView(); 
+		document.body.appendChild(view); 
+		network.adjustBounds({
+			x: 0, 
+			y: 0, 
+			width: 1300, 
+			height: 600
+		}); 
+		// twaver.Styles.setStyle('link.color',"#57ab9a"); 
+	} 
+	function initDataBox() { 
+		var Host = new twaver.Node({ 
+			name:'host', 
+			location:{ x:100, y:200 } 
+		}); 
+		box.add(Host); 
+
+		var Follower = new twaver.Follower({ 
+			name:'Follower', 
+			location:{ x:300, y:300 } 
+		}); 
+		box.add(Follower);
+		 
+		Follower.setHost(Host); 
+	}
+	init();
+</script>
+</body>
+</html>

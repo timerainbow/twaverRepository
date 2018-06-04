@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+		var box = new twaver.ElementBox();
+        var network = new twaver.vector.Network(box);
+ 
+        function init() {
+            initNetwork();
+            initListener();
+            initDataBox();
+        }
+ 
+        function initNetwork() {
+            var view = network.getView();
+            document.body.appendChild(view);
+            view.style.backgroundColor = "#ccc";
+            network.adjustBounds({x: 0, y: 0, width: 1200, height: 600});
+        }
+ 
+ 
+        function initDataBox() {
+            box.setName('databox');
+ 
+            var node1 = new twaver.Node({
+                name: 'node1',
+                location: {
+                    x: 300,
+                    y: 200
+                }
+            });
+
+            box.add(node1);
+ 
+            var node2 = new twaver.Node({
+                name: 'node2',
+                location: {
+                    x: 200,
+                    y: 200
+                }
+            });
+            box.add(node2);
+ 
+            box.moveToTop(node2);
+            box.clear();
+        }
+ 
+        function initListener() {
+            box.addPropertyChangeListener(function (e) {
+                console.log('PropertyChange:');
+                console.log(e);
+            });
+ 
+            box.addDataBoxChangeListener(function (e) {
+                console.log('DataBoxChange:');
+                console.log(e);
+            });
+ 
+            box.addDataPropertyChangeListener(function (e) {
+                console.log('DataPropertyChange:');
+                console.log(e);
+            });
+ 
+            box.addHierarchyChangeListener(function (e) {
+                console.log('HierarchyChange:');
+                console.log(e);
+            })
+        }
+    	init();
+</script>
+</body>
+</html>

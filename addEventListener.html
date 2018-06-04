@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+	var box  = new twaver.ElementBox();
+	var network = new twaver.vector.Network(box);
+	var view = network.getView();
+	document.body.appendChild(network.getView());
+	network.adjustBounds({x:0,y:0,width:1000,height:600});
+	view.style.backgroundColor = "#ccc";
+
+	view.addEventListener('mousemove', function (e) {
+		//console.log("trigger!");
+        var target = self.network.hitTest(e);
+        if (target) {
+            if (target instanceof twaver.network.ElementUI) {
+                console.log('滑过一次！！');
+           		var testnode = self.network.getElementAt(e);
+           		alert(testnode.getName());
+            }
+            // if (target instanceof twaver.network.LabelAttachment) {
+                // console.log('clicked LabelAttachment');
+            // }
+        }
+    });  
+</script>
+</body>
+</html>

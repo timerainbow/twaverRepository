@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script src="./twaver.js"></script>
+<script type="text/javascript">
+	var box = new twaver.ElementBox(); 
+	var network = new twaver.vector.Network(box); 
+	var tree = new twaver.controls.Tree(box); 
+	var table = new twaver.controls.Table(box); 
+	function init() { 
+		var tablePane = new twaver.controls.TablePane(table); 
+		var rightSplit = new twaver.controls.SplitPane(network, tablePane, 'vertical', 0.7); 
+		var mainSplitPane = new twaver.controls.SplitPane(tree, rightSplit, 'horizontal', 0.3); 
+		var networkDom = mainSplitPane.getView();//获取相应的div 
+		networkDom.style.width = "100%"; 
+		networkDom.style.height = "100%"; 
+		document.body.appendChild(networkDom); 
+		network.getView().style.backgroundColor = "#f3f3f3"; 
+		network.getView().style.cursor = "hand"; 
+		window.onresize = function () { 
+			mainSplitPane.invalidate(); 
+		} 
+		initDataBox(); 
+	} 
+	function initDataBox() { 
+		var subNetworkA = new twaver.SubNetwork(); 
+		subNetworkA.setName("Subnetwork A"); 
+		subNetworkA.setLocation(20, 20); 
+		box.add(subNetworkA); 
+		var groupA = new twaver.Group({ name: 'groupA', location: {x: 100, y: 100} }); 
+		box.add(groupA); 
+		var nodeA = new twaver.Node({ name: 'nodeA', location: {x: 200, y: 200} }); 
+		box.add(nodeA); 
+		var link = new twaver.Link(groupA,nodeA); 
+		box.add(link); subNetworkA.addChild(nodeA); 
+		subNetworkA.addChild(groupA); subNetworkA.addChild(link); 
+		var subNetworkB = new twaver.SubNetwork(); 
+		subNetworkB.setName("Subnetwork B"); 
+		subNetworkB.setLocation(120, 20); 
+		box.add(subNetworkB); 
+	}
+	init();
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+	var box = new twaver.ElementBox(); 
+	var network = new twaver.vector.Network(box); 
+	function init() { 
+		initNetwork(); 
+		registerImage(); 
+		initDataBox(); 
+	} 
+	function initNetwork() { 
+		var view = network.getView(); 
+		document.body.appendChild(view); 
+		network.adjustBounds({x: 0, y: 0, width: 1300, height: 600}); 
+	} 
+	function registerImage() { 
+		//register shadow 
+		twaver.Util.registerImage('shadow', 
+			{ 
+				w: 37, 
+				h: 29, 
+				shadowOffsetX: 0, 
+				shadowOffsetY: 0, 
+				shadowBlur: 5, 
+				shadowColor: '#57ab9a', 
+				v: [ { 
+						shape: 'vector', 
+						name: 'node_image', 
+						x: 0, 
+						y: 0 
+					} ] 
+				}
+			); 
+	} 
+	function initDataBox() { 
+		var group = new twaver.Group(); 
+		group.s('group.fill.color','#ec6c00'); 
+		group.s('whole.alpha',0.5);
+		group.s('group.shape','oval'); 
+		box.add(group); 
+		var from = new twaver.Node({ 
+			name: 'from', 
+			location: { x: 100, y: 100 }, 
+			image:'shadow' 
+		}); 
+		box.add(from); 
+		var to = new twaver.Node({ 
+			name:'to', 
+			location:{ x:220, y:160 }, 
+			image:'shadow' 
+		}); 
+		box.add(to); 
+		var link = new twaver.Link(from,to); 
+		link.s('link.color','#57ab9a'); 
+		box.add(link); 
+		group.addChild(from); 
+		group.addChild(to); 
+	}
+	init()
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+var box = new twaver.ElementBox();
+var network = new twaver.vector.Network(box);
+
+var bottomPane = document.createElement('div');
+var sheet = new twaver.controls.PropertySheet(box);
+bottomPane.style.background= "#3f0000";
+splitPane = new twaver.controls.SplitPane(sheet,bottomPane,'vertical',0.8);
+
+splitPane.getView().style.left = '0px';
+splitPane.getView().style.top = '0px';
+splitPane.getView().style.right = '80px';
+splitPane.getView().style.bottom = '100px';
+
+view = network.getView();
+view.style.backgroundColor = "#ccc";
+sheet.setEditable(true);
+sheet.getView().style.height = '400px';
+sheet.getView().style.width = '800px';
+sheet.getView().style.backgroundColor = '#3d9970';
+document.body.appendChild(splitPane.getView());
+prepareImages();
+
+function prepareImages(){
+	registerImages('images/base.png');
+	registerImages('images/computer.png');
+	registerImages('images/exchage.png');
+	registerImages('images/fire.png');
+	registerImages('images/pore.png');
+	registerImages('images/route.png');
+	registerImages('images/server.png');
+	registerImages('images/server2.png');
+
+	addDraggableNodeButton('images/base.png');
+	addDraggableNodeButton('images/computer.png');
+	addDraggableNodeButton('images/exchage.png');
+	addDraggableNodeButton('images/fire.png');
+	addDraggableNodeButton('images/pore.png');
+	addDraggableNodeButton('images/route.png');
+	addDraggableNodeButton('images/server.png');
+	addDraggableNodeButton('images/server2.png');
+}
+
+function registerImages(src){
+	twaver.Util.registerImage(getImageName(src),src,40,40,false);
+}
+
+function getImageName(src){
+	var index = src.lastIndexOf('/');
+	return src.substring(index+1);
+}
+
+function addDraggableNodeButton(src){
+    var image = new Image();
+    var imageName = getImageName(src);
+    image.setAttribute('title', imageName);
+    image.setAttribute('draggable', 'true');
+    image.style.cursor = 'move';
+    image.style.verticalAlign = 'center';
+    image.style.width = '40px';
+    image.style.height = '40px';
+    image.style.padding = '0px 4px 4px 4px';
+    image.setAttribute('src', src);
+    image.addEventListener('dragstart', function (e) {
+    	//console.log(e);
+        e.dataTransfer.effectAllowed = 'copy';
+        e.dataTransfer.setData('Text','className:twaver.Node');
+        e.dataTransfer.setData('Image', 'image:' + imageName);
+    }, false);
+    
+    //network.getView().appendChild(image);
+    bottomPane.appendChild(image);
+    return image;
+}
+
+</script>
+</body>
+</html>

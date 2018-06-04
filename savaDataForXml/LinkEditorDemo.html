@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TWaver HTML5 - Link Editor Demo</title>
+    <script type="text/javascript" src="./twaver.js"></script>
+    <!-- <script type="text/javascript" src="../demo.js"></script> -->
+    <script type="text/javascript" src="./LinkEditorDemo.js"></script>
+    <script type="text/javascript" src="../jquery.js"></script>
+</head>
+<body>
+    <button id="save">导出</button>
+    <div id='main'></div>
+    <script type="text/javascript">
+        var linkEditorDemo = new LinkEditorDemo();
+        linkEditorDemo.init();
+
+        /*$("#save").live('click',function(){
+            //将DataBox序列化成xml数据
+            var datas = new twaver.XmlSerializer(linkEditorDemo.box).serialize();
+            console.log(datas);
+        })*/
+    </script>
+</body>
+</html>

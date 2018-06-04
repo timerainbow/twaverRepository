@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script src="twaver.js"></script>
+<script>
+	var borderPane;
+	var splitPane ;
+	function init() { 
+		initPane();
+	} 
+	function initPane(){ 
+		var centerPane = document.createElement('div');		 
+		var topPane = document.createElement('div');
+		var bottomPane = document.createElement('div');
+		var leftPane = document.createElement('div');
+		var rightPane = document.createElement('div');
+		centerPane.style.background=twaver.Colors.blue_light;
+		topPane.style.background=twaver.Colors.green_light;
+		leftPane.style.background=twaver.Colors.orange_light;
+		bottomPane.style.background=twaver.Colors.green_light;
+		rightPane.style.background=twaver.Colors.orange_light;
+		centerPane.innerHTML="Center";
+		centerPane.style.textAlign="center";
+		centerPane.style.fontSize = "80px";
+		topPane.innerHTML="Top";
+		topPane.style.textAlign="center";
+		topPane.style.fontSize = "20px";
+		leftPane.innerHTML="Left";
+		leftPane.style.textAlign="center";
+		leftPane.style.fontSize = "80px";
+		bottomPane.innerHTML="Bottom";
+		bottomPane.style.textAlign="center";
+		bottomPane.style.fontSize = "20px";
+		rightPane.innerHTML="Right";
+		rightPane.style.textAlign="center";
+		rightPane.style.fontSize = "80px";
+		borderPane = new twaver.controls.BorderPane(
+			centerPane,
+			topPane,
+			rightPane,
+			bottomPane,
+			leftPane);
+
+		 borderPane.setTopHeight(40);
+		 borderPane.setLeftWidth(200);
+		 borderPane.setBottomHeight(40);
+		 borderPane.setRightWidth(200);
+		 var splitPaneLeft = document.createElement('div');
+		 splitPaneLeft.style.background=twaver.Colors.blue_light;
+		 splitPane = new twaver.controls.SplitPane(splitPaneLeft,borderPane);
+		 splitPane.getView().style.position = 'absolute';
+		 splitPane.getView().style.left = '0px';
+		 splitPane.getView().style.top = '0px';
+		 splitPane.getView().style.right = '0px';
+		 splitPane.getView().style.bottom = '0px';
+		 splitPane.setPosition(0.2);
+		 splitPane.setDividerWidth(10);
+		 document.body.appendChild(splitPane.getView());
+		 window.onresize = function (e) { splitPane.invalidate();
+	};
+}
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+	var box = new twaver.ElementBox();
+    var network = new twaver.vector.Network(box);
+
+    function init() {
+        initNetwork();
+        initDataBox();
+    }
+
+    function initNetwork() {
+        var view = network.getView();
+        document.body.appendChild(view);
+        network.adjustBounds({x: 0, y: 0, width: 1300, height: 600});
+    }
+
+
+    function initDataBox() {
+        for (var i = 0; i < 10; i++) {
+            var node = new twaver.Node();
+            node.setName('node-' + parseInt(i / 4));
+            node.setClient('NO', i % 4);
+            node.setLocation({x:70*i,y:0});
+            box.add(node);
+        }
+
+        var nameFinder = new twaver.QuickFinder(box, 'name');
+        var noFinder = new twaver.QuickFinder(box, 'NO', 'client');
+
+        var data = nameFinder.findFirst('node-1');
+        console.log("nameFinder.findFirst('node-1')",data);
+
+        var datas = nameFinder.find('node-1');
+        console.log("nameFinder.find('node-1')",datas);
+
+        data = noFinder.findFirst(1);
+        console.log("noFinder.findFirst(1)",data);
+
+        datas = noFinder.find(1);
+        console.log("noFinder.find(1)",datas);
+
+    }
+    init();
+</script>
+</body>
+</html>

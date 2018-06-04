@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+	var box = new twaver.ElementBox(); 
+    var network = new twaver.vector.Network(box); 
+    function init() { 
+        initNetwork(); 
+        initDataBox(); 
+    } 
+    function initNetwork() {
+        var view = network.getView(); 
+        document.body.appendChild(view); 
+        view.style.backgroundColor = "#ccc";
+        network.adjustBounds({x: 0, y: 0, width: 800, height: 400}); 
+        network.getToolTip = function (element) { 
+            var Id = element.getId(); 
+            var name = element.getName(); 
+            var name2 = element.getName2(); 
+            var icon = element.getIcon(); 
+            var clientProperty = element.getClient('clientProperty'); 
+            return 'Id:' + Id + ' ' + 'name:' + name + ' ' + 'name2:' + name2+ ' ' + 'icon:' + icon; 
+        } 
+        twaver.Styles.setStyle('label.color','#ec6c00'); 
+        twaver.Styles.setStyle('label2.color','#57ab9a'); 
+        twaver.Styles.setStyle('select.color','#ef8200'); 
+    } 
+    function initDataBox() { 
+        var node = new twaver.Node({ name: 'from', name2: 'from2', location: { x: 300, y: 200 } }); 
+        box.add(node); 
+        var node2 = new twaver.Node({ name: 'to', name2: 'to2', location: { x: 500, y: 250 } }); 
+        box.add(node2); 
+
+        var link = new twaver.Link(node, node2); 
+        link.setName('Hello TWaver!'); 
+        link.setName2('Hello Vector!'); 
+        link.setClient('clientProperty',node); 
+        //link.setClient('clientProperty','node');
+        //console.log("client:"+link.getClient('clientProperty'))
+        box.add(link);
+    }
+    init();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript" src="twaver.js"></script>
+<script type="text/javascript">
+		var box = new twaver.ElementBox();
+        var network = new twaver.vector.Network(box);
+        var selectionModel = box.getSelectionModel();
+ 
+        function init() {
+            initNetwork();
+            initListener();
+            initDataBox();
+        }
+ 
+        function initNetwork() {
+            var view = network.getView();
+            document.body.appendChild(view);
+            network.adjustBounds({x: 0, y: 0, width: 1300, height: 600});
+        }
+ 
+ 
+        function initDataBox() {
+            for (var i = 0; i < 10; i++) { 
+            	var node = new twaver.Node(i); 
+            	node.setName('node-' + parseInt(i / 4)); 
+            	node.setClient('NO', i % 4);
+            	node.setLocation({x:50*i,y:0}); 
+            	box.add(node); 
+            } 
+            selectionModel.appendSelection(box.getDataById(0)); 
+            selectionModel.appendSelection(box.getDataById(1)); 
+            selectionModel.removeSelection(box.getDataById(0)); 
+            selectionModel.setSelection([box.getDataById(2), box.getDataById(6)]); 
+            selectionModel.appendSelection([
+            	box.getDataById(2), 
+            	box.getDataById(3), 
+            	box.getDataById(4)
+            ]); //single selection mode
+            console.log('selection size:' + selectionModel.size()); 
+            console.log('设置单选模式,首先清除当前的选中状态,以后每次只选择最多一个元素'); 
+            selectionModel.setSelectionMode('singleSelection'); 
+            selectionModel.appendSelection([
+            	box.getDataById(2), 
+            	box.getDataById(3), 
+            	box.getDataById(4)
+            ]); 
+            console.log('selection size(single):' + selectionModel.size()); 
+            //none selection mode 
+            console.log('设置不可选模式,会清除当前的选中状态'); 
+            selectionModel.setSelectionMode('noneSelection'); 
+            selectionModel.appendSelection([box.getDataById(2), 
+            box.getDataById(3), box.getDataById(4)]); 
+            //multiple selection mode 
+            console.log('默认是多选模式'); 
+            console.log('selection size:' + selectionModel.size()); 
+            selectionModel.setSelectionMode('multipleSelection'); 
+            console.log('\n设置过滤器,所有id大于5的都不可选'); 
+            selectionModel.setFilterFunction(function (data) { 
+            	return data.getId() > 5;
+            });
+            selectionModel.selectAll();
+        }
+ 
+        function initListener() {
+            selectionModel.addSelectionChangeListener(function (e) {
+                console.log(e);
+//                console.log('kind:' + e.kind + ',datas:' + e.datas.toString());
+            });
+        }
+        init();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.link{
+			background-color: #3d9970;
+			padding: 4px 20px;
+			cursor: pointer;
+			width: 100px;
+			float: left;
+			margin-left: 20px;
+		}
+	</style>
+</head>
+<div class="link" id="openlink">开启连线模式</div>
+<div class="link" id="closelink">关闭连线模式</div>
+<body>
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript" src="./twaver.js"></script>
+<script type="text/javascript">
+	var box = new twaver.ElementBox();
+	var network = new twaver.vector.Network(box);
+	var networkView = network.getView();
+
+	document.body.appendChild(networkView);
+	networkView.style.backgroundColor = "#ccc";
+	network.adjustBounds({x:20,y:60,width:600,height:400});
+
+	var node1 = new twaver.Node({
+		name: 'node1',
+		location: { x:100,y:100 }
+	})
+	box.add(node1);
+
+	var node2 = new twaver.Node({
+		name: 'node2',
+		location: { x:300,y:300 }
+	})
+	box.add(node2);
+
+	document.getElementById('openlink').addEventListener('click', function (e) {
+		network.setCreateLinkInteractions(function (fromNode, toNode) {
+            var link = new twaver.Link();
+            link.setFromNode(fromNode);
+            link.setToNode(toNode);
+            return link;
+        });
+	});
+
+	document.getElementById('closelink').addEventListener('click',function(){
+		network.setInteractions([
+			new twaver.network.interaction.DefaultInteraction(network)
+		]);
+	})
+</script>
+</body>
+</html>
